@@ -16,12 +16,9 @@ app.use(express.static(__dirname + '/public'));
 // Chatroom
 
 var numUsers = 0;
-var numUsersDom = document.getElementById('amount');
 
 io.on('connection', function (socket) {
   var addedUser = false;
-
-  amount++;
 
   // when the client emits 'new message', this listens and executes
   socket.on('new message', function (data) {
@@ -39,8 +36,6 @@ io.on('connection', function (socket) {
     // we store the username in the socket session for this client
     socket.username = username;
     ++numUsers;
-
-    usersNumDom.innerHTML = usersNum + " users online";
 
     addedUser = true;
     socket.emit('login', {
@@ -71,8 +66,6 @@ io.on('connection', function (socket) {
   socket.on('disconnect', function () {
     if (addedUser) {
       --numUsers;
-
-      usersNumDom.innerHTML = usersNum + " users online";
 
       // echo globally that this client has left
       socket.broadcast.emit('user left', {
