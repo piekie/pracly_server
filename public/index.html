@@ -13,28 +13,26 @@
   <script src="/socket.io/socket.io.js"></script>
 
   <script> 
-        document.addEventListener('DOMContentLoaded', function() {
-            var socket = io();
-            
-            var numUsers = 0;
-            var numUsersDom = document.getElementById('amount');
+        var socket = io();
+        
+        var numUsers = 0;
+        var numUsersDom = document.getElementById('amount');
 
-            socket.on('add user', function (username) {
-              if (addedUser) return;
-              
-              addedUser = true;
-              ++numUsers;
-              numUsersDom.innerHTML = numUsers + " users online";
-            });
-
-            socket.on('disconnect', function () {
-              if (addedUser) {
-                --numUsers;
-                numUsersDom.innerHTML = numUsers + " users online";
-              }
-            });
+        socket.on('add user', function (username) {
+          if (addedUser) return;
+          
+          addedUser = true;
+          ++numUsers;
+          numUsersDom.innerHTML = numUsers + " users online";
         });
-    </script>
+
+        socket.on('disconnect', function () {
+          if (addedUser) {
+            --numUsers;
+            numUsersDom.innerHTML = numUsers + " users online";
+          }
+        });
+  </script>
 
   <p id="amount">0 users online</p>
 
