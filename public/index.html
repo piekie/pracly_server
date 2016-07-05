@@ -13,23 +13,24 @@
   <script src="/socket.io/socket.io.js"></script>
 
   <script> 
-        var socket = io();
+        var socket = io.connect();
         
         var numUsers = 0;
         var numUsersDom = document.getElementById('amount');
+        var addedUser = false;
 
         socket.on('add user', function (username) {
           if (addedUser) return;
           
           addedUser = true;
           ++numUsers;
-          numUsersDom.innerHTML = numUsers + " users online";
+          numUsersDom.innerHTML = numUsers + ' users online';
         });
 
         socket.on('disconnect', function () {
           if (addedUser) {
             --numUsers;
-            numUsersDom.innerHTML = numUsers + " users online";
+            numUsersDom.innerHTML = numUsers + ' users online';
           }
         });
   </script>
